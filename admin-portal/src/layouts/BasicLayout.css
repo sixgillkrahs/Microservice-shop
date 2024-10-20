@@ -1,0 +1,17 @@
+.headerBasicLayout {
+    background: #fff;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contextBasicLayout {
+    margin: 24px 16px 0;
+}
+
+.outletBasicLayout {
+    padding: 24px;
+    background: #fff;
+    min-height: 360px;
+}
