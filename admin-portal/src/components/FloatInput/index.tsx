@@ -28,6 +28,13 @@ const FloatInput: React.FC<Props> = ({
   const labelClass = isOccupied ? "label as-label" : "label as-placeholder";
   const requiredMark = required ? <span className="text-danger">*</span> : null;
 
+
+  const handleChange = (val: any) => {
+    if (onChange) {
+      onChange(val);
+    }
+  };
+
   return (
     <div
       className="float-label"
@@ -35,18 +42,14 @@ const FloatInput: React.FC<Props> = ({
       onFocus={() => setFocus(true)}
     >
       {type === "number" ? (
-        <InputNumber
-          min={1}
-          max={100}
-          onChange={onChange}
-          defaultValue={value}
-        />
+        <InputNumber min={1} max={100} onChange={onChange} value={value} />
       ) : (
         <Input
-          onChange={onChange}
+          onChange={(e) => handleChange(e.target.value)}
           type={type}
-          defaultValue={value}
+          value={value}
           maxLength={maxlength}
+          size="large"
         />
       )}
       <label className={labelClass}>

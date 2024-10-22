@@ -21,7 +21,7 @@ const AuthLayout = () => {
   return (
     <ConfigProvider locale={currentLocale}>
       <Layout>
-        <Header
+        {/* <Header
           style={{
             background: "#fff",
             padding: 0,
@@ -40,15 +40,15 @@ const AuthLayout = () => {
             <Option value="vi-VN">{translate("language.vn")}</Option>
             <Option value="en-US">{translate("language.en")}</Option>
           </Select>
-        </Header>
-        <Content style={{ margin: "24px 16px 0" }}>
-          <Card style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-            <Outlet />
-          </Card>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
+        </Header> */}
+        {/* <Content style={{ margin: "24px 16px 0" }}>
+          <Card> */}
+        <Outlet />
+        {/* </Card>
+        </Content> */}
+        {/* <Footer style={{ textAlign: "center" }}>
           ©{new Date().getFullYear()} Bản Quyền Thuộc Về Cửa Hàng
-        </Footer>
+        </Footer> */}
       </Layout>
     </ConfigProvider>
   );
