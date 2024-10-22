@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Layout, ConfigProvider, Select, Card } from "antd";
 import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
-import { createIntl, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { createBrowserHistory } from "history";
 import * as allIcons from "@ant-design/icons";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { locales, menuList, useTranslate } from "../utils";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { locales, getMenuList, useTranslate } from "../utils";
 import { Preloader } from "../components";
 import "./BasicLayout.css";
+import { validate } from "../services/auth/api";
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
 const history = createBrowserHistory();
 
-interface CustomIconProps {
-  value?: string;
-}
-
-const CustomIcon: React.FC<CustomIconProps> = ({ value }) => {
+const CustomIcon = ({ value }: { value?: string }) => {
   return <span>{value || "Custom"}</span>;
 };
 
@@ -34,15 +31,16 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   });
 
 const BasicLayout: React.FC = () => {
-  const { formatMessage } = createIntl({ ...useIntl(), onError: () => {} });
+  const navigate = useNavigate();
+  const { formatMessage } = useIntl();
   const translate = useTranslate();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const menuList = getMenuList(translate);
 
   const storedLocale = localStorage.getItem("locale") || "vi-VN";
   const [locale, setLocale] = useState<string>(storedLocale);
-
   const currentLocale = locales[locale];
 
   const handleCollapse = (collapsing: boolean) => {
@@ -52,8 +50,21 @@ const BasicLayout: React.FC = () => {
 
   useEffect(() => {
     const loadData = async () => {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if (!token) {
+        navigate("auth/login");
+        return;
+      } else {
+        const resp = await validate(token);
+        console.log(resp);
+        if (!resp.success) {
+          navigate("auth/login");
+          return;
+        }
+      }
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setLoading(false);
     };
 

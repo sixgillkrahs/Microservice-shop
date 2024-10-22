@@ -8,6 +8,10 @@ export default {
     "form.title.phone":"Phone",
     "form.title":"Resend",
     "form.title.otp":"Send OTP",
+    "form.title.submit":"Login",
+    "form.title.welcome":"Welcome back",
+
+    "form.notice.login":"Oops, wrong username or password!",
 
     "form.forgotPassword":"Forgot password",
     "form.rememberPassword":"Remember for me",

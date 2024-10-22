@@ -14,26 +14,28 @@ import {
   ProConfigProvider,
 } from "@ant-design/pro-components";
 import { Tabs, message, theme } from "antd";
-import { CSSProperties, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslate } from "../../utils";
 import { login } from "../../services/auth/api";
 
 type LoginType = "phone" | "account";
 
-const iconStyles: CSSProperties = {
-  color: "rgba(0, 0, 0, 0.2)",
-  fontSize: "18px",
-  verticalAlign: "middle",
-  cursor: "pointer",
-};
-
 const Login = () => {
   const [loginType, setLoginType] = useState<LoginType>("account");
   const { token } = theme.useToken();
+  const navigate = useNavigate();
   const translate = useTranslate();
+  const [messagelog, setMessageLog] = useState<string>();
   const onFinish = async (formData: any) => {
     const resp = await login(formData);
     console.log(resp);
+    if (resp.success) {
+      localStorage.setItem("token", resp.token);
+      navigate("/");
+    } else {
+      setMessageLog(translate("form.notice.login"));
+    }
   };
 
   return (
@@ -52,105 +54,14 @@ const Login = () => {
           backgroundColor: "rgba(0, 0, 0,0.65)",
           backdropFilter: "blur(4px)",
         }}
-        subTitle="Đăng Nhập"
-        // submitter={{
-        //   submitButtonProps: {
-        //     // title: "he",
-        //     content: "helo",
-        //     title: "hello",
-        //   },
-        // }}
+        subTitle={translate("form.title.welcome")}
+        submitter={{
+          searchConfig: {
+            submitText: translate("form.title.submit"),
+          },
+        }}
+        message={messagelog}
         onFinish={onFinish}
-        // activityConfig={{
-        //   style: {
-        //     boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.2)",
-        //     color: token.colorTextHeading,
-        //     borderRadius: 8,
-        //     backgroundColor: "rgba(255,255,255,0.25)",
-        //     backdropFilter: "blur(4px)",
-        //   },
-        //   title: "hello",
-        //   subTitle: "hell",
-        //   action: (
-        //     <Button
-        //       size="large"
-        //       style={{
-        //         borderRadius: 20,
-        //         background: token.colorBgElevated,
-        //         color: token.colorPrimary,
-        //         width: 120,
-        //       }}
-        //     >
-        //       he
-        //     </Button>
-        //   ),
-        // }}
-        // actions={
-        //   <div
-        //     style={{
-        //       display: "flex",
-        //       justifyContent: "center",
-        //       alignItems: "center",
-        //       flexDirection: "column",
-        //     }}
-        //   >
-        //     <Divider plain>
-        //       <span
-        //         style={{
-        //           color: token.colorTextPlaceholder,
-        //           fontWeight: "normal",
-        //           fontSize: 14,
-        //         }}
-        //       >
-        //         Đăng nhập bằng
-        //       </span>
-        //     </Divider>
-        //     <Space align="center" size={24}>
-        //       <div
-        //         style={{
-        //           display: "flex",
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //           flexDirection: "column",
-        //           height: 40,
-        //           width: 40,
-        //           border: "1px solid " + token.colorPrimaryBorder,
-        //           borderRadius: "50%",
-        //         }}
-        //       >
-        //         <AlipayOutlined style={{ ...iconStyles, color: "#1677FF" }} />
-        //       </div>
-        //       <div
-        //         style={{
-        //           display: "flex",
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //           flexDirection: "column",
-        //           height: 40,
-        //           width: 40,
-        //           border: "1px solid " + token.colorPrimaryBorder,
-        //           borderRadius: "50%",
-        //         }}
-        //       >
-        //         <TaobaoOutlined style={{ ...iconStyles, color: "#FF6A10" }} />
-        //       </div>
-        //       <div
-        //         style={{
-        //           display: "flex",
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //           flexDirection: "column",
-        //           height: 40,
-        //           width: 40,
-        //           border: "1px solid " + token.colorPrimaryBorder,
-        //           borderRadius: "50%",
-        //         }}
-        //       >
-        //         <WeiboOutlined style={{ ...iconStyles, color: "#1890ff" }} />
-        //       </div>
-        //     </Space>
-        //   </div>
-        // }
       >
         <Tabs
           centered
@@ -163,7 +74,7 @@ const Login = () => {
         {loginType === "account" && (
           <>
             <ProFormText
-              name="username"
+              name="email"
               fieldProps={{
                 size: "large",
                 prefix: (

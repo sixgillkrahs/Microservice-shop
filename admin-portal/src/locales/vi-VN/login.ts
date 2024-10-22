@@ -8,6 +8,10 @@ export default {
     "form.title.phone":"Số ĐT",
     "form.title.resend":"Gửi lại",
     "form.title.otp":"Gửi OTP",
+    "form.title.submit":"Đăng nhập",
+    "form.title.welcome":"Chào mừng bạn trở lại",
+
+    "form.notice.login":"Ôi, sai tài khoản hoặc mật khẩu!",
 
     "form.forgotPassword":"Quên mật khẩu!",
     "form.rememberPassword":"Lưu mật khẩu!",

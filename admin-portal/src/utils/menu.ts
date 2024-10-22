@@ -1,32 +1,45 @@
 import { MenuDataItem } from "@ant-design/pro-layout";
-// import {  useTranslate } from "./language";
 
-// const translate = useTranslate();
-
-const menuList : MenuDataItem[] = [
+const getMenuList = (translate: Function): MenuDataItem[] => [
   {
     path: "/",
-    // name: translate('menu.home'),
-    // name:"Trang chur",
+    name: translate("menu.dashboard"), 
     icon: "HomeOutlined", 
   },
+  // {
+  //   path: "/a",
+  //   name: translate("menu.products"), 
+  //   icon: "AppstoreOutlined",
+  //   children: [
+  //     {
+  //       path: "/products/new",
+  //       name: translate("menu.addProduct"),
+  //       icon: "PlusOutlined",
+  //     },
+  //     {
+  //       path: "/products/list",
+  //       name: translate("menu.productList"), 
+  //       icon: "OrderedListOutlined",
+  //     },
+  //   ],
+  // },
   {
-    path: "/a",
-    name: "Sản Phẩm",
-    icon: "AppstoreOutlined",
-    children: [
-      {
-        path: "/products/new",
-        name: "Thêm Sản Phẩm",  
-        icon: "PlusOutlined",
+    path: "/user",
+    name: translate("menu.usermanagement"),
+    icon: "HomeOutlined", 
+    children : [
+       {
+        path: "/user/users",
+        name: translate("menu.usermanagement.user"), 
+        icon: "UserOutlined",
       },
       {
-        path: "/products/list",
-        name: "Danh Sách Sản Phẩm",
+        path: "/user/employees",
+        name: translate("menu.usermanagement.employees"), 
         icon: "OrderedListOutlined",
       },
-    ],
+    ]
   },
 ];
 
-export default menuList;
+export default getMenuList;

@@ -3,20 +3,22 @@ import { Routes } from "./utils";
 import { IntlProvider } from "react-intl";
 import messages from "./locales";
 import { ConfigProvider } from "antd";
+import { ProConfigProvider } from "@ant-design/pro-components";
 
 function App() {
   const locale = localStorage.getItem("locale") || "vi-VN";
+
   return (
-    <IntlProvider locale="locale" messages={messages[locale]}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#ff0339",
-          },
-        }}
-      >
-        <Routes />
-      </ConfigProvider>
+    <IntlProvider
+      locale={locale}
+      messages={messages[locale]}
+      defaultLocale={locale}
+    >
+      <ProConfigProvider dark={false}>
+        <ConfigProvider>
+          <Routes />
+        </ConfigProvider>
+      </ProConfigProvider>
     </IntlProvider>
   );
 }
