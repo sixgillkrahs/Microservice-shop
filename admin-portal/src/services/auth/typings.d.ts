@@ -3,4 +3,10 @@ declare namespace API {
     email: string;
     password: string;
   }
+  type GetUserPaging = {
+     sortType?: number,
+     sortBy?: string,
+     pageIndex?: number,
+     pageSize?: number, 
+  }
 }

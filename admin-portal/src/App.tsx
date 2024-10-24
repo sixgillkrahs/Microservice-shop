@@ -4,6 +4,7 @@ import { IntlProvider } from "react-intl";
 import messages from "./locales";
 import { ConfigProvider } from "antd";
 import { ProConfigProvider } from "@ant-design/pro-components";
+import viVN from "antd/locale/vi_VN";
 
 function App() {
   const locale = localStorage.getItem("locale") || "vi-VN";
@@ -15,7 +16,7 @@ function App() {
       defaultLocale={locale}
     >
       <ProConfigProvider dark={false}>
-        <ConfigProvider>
+        <ConfigProvider >
           <Routes />
         </ConfigProvider>
       </ProConfigProvider>

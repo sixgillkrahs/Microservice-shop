@@ -2,6 +2,7 @@ import form from './vi-VN/form'
 import home from './vi-VN/home'
 import login from './vi-VN/login'
 import menu from './vi-VN/menu'
+import user from './vi-VN/user'
 
 
 export default {
@@ -10,5 +11,6 @@ export default {
     ...home,
     ...login,
     ...form,
-    ...menu
+    ...menu,
+    ...user
 }

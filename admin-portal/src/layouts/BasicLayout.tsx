@@ -56,12 +56,13 @@ const BasicLayout: React.FC = () => {
         navigate("auth/login");
         return;
       } else {
-        const resp = await validate(token);
-        console.log(resp);
-        if (!resp.success) {
+        try {
+          const resp = await validate(token);
+        } catch (error) {
           navigate("auth/login");
           return;
         }
+        // }
       }
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));

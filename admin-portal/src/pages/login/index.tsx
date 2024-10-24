@@ -23,17 +23,21 @@ type LoginType = "phone" | "account";
 
 const Login = () => {
   const [loginType, setLoginType] = useState<LoginType>("account");
+  const [loading, setLoading] = useState<boolean>(false);
   const { token } = theme.useToken();
   const navigate = useNavigate();
   const translate = useTranslate();
   const [messagelog, setMessageLog] = useState<string>();
   const onFinish = async (formData: any) => {
+    setLoading(true);
     const resp = await login(formData);
     console.log(resp);
     if (resp.success) {
+      setLoading(false);
       localStorage.setItem("token", resp.token);
       navigate("/");
     } else {
+      setLoading(false);
       setMessageLog(translate("form.notice.login"));
     }
   };
@@ -62,6 +66,7 @@ const Login = () => {
         }}
         message={messagelog}
         onFinish={onFinish}
+        loading={loading}
       >
         <Tabs
           centered
