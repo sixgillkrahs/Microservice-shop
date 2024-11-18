@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface UserAuthService {
     public ResponseAPI<Boolean> createUser(CreateUserAuthDto input);
     public ResponseAPI<UserDto> getUserById(UUID id);
-    public ResponseAPI<String> validateToken(String token);
+    public ResponseAPI<Boolean> validateToken(String token);
     public ResponseAPI<String> login(String userName,String role);
 }

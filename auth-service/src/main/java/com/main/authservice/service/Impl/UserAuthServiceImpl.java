@@ -87,9 +87,9 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public ResponseAPI<String> validateToken(String token) {
+    public ResponseAPI<Boolean> validateToken(String token) {
         jwtService.validateToken(token);
-        return ResponseAPI.successResponse("Token is valid");
+        return ResponseAPI.successResponse(true);
     }
 
     @Override

@@ -1,0 +1,36 @@
+package com.main.notificationservice.config;
+
+import com.main.notificationservice.service.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.Properties;
+
+@Configuration
+public class MailConfig {
+    @Autowired
+    private ConfigService configService;
+
+    @Bean
+    public JavaMailSender getJavaMailSender() {
+        String username = configService.getValue("USERNAME_MAIL_SENDER");
+        String password = configService.getValue("PASSWORD_MAIL_SENDER");
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
+    }
+}
