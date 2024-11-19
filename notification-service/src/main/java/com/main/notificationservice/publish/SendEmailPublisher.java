@@ -15,6 +15,6 @@ public class SendEmailPublisher {
     private Connection connection;
 
     public void sendEmail(String message) {
-        connection.publish(topic, message.getBytes(StandardCharsets.UTF_8));
+        connection.publish("sendEmail", message.getBytes(StandardCharsets.UTF_8));
     }
 }
