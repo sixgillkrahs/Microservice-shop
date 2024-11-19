@@ -27,3 +27,9 @@ eureka:
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+job:
+  nats:
+    url: nats://localhost:4222
+    subject: job
+    topic: HELLO
